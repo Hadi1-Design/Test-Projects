@@ -1,0 +1,3 @@
+lib/test.dart:1:5: Error: A non-null value must be returned since the return type 'int' doesn't allow null.
+int main() {
+    ^
