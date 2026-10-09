@@ -1,16 +1,2 @@
-# test_project_1
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# VisionMart
+VisionMart is an AI-powered surveillance system that helps retail stores detect suspicious customer behavior in real time. It analyzes live camera video, understands what people are doing, and sends alerts to store owners on their phones.
