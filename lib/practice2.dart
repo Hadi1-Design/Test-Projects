@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:test_project_1/practice1.dart';
+import 'package:test_project_1/splashscreen.dart';
 import 'package:test_project_1/ui_layouts/util.dart';
 import 'package:intl/intl.dart';
 
@@ -27,19 +29,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
       ),
-      home: const MyHomePage(),
+      home: const SplashScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class MyHomePage1 extends StatefulWidget {
+  const MyHomePage1({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage1> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage1> {
   var emailText = TextEditingController();
   var passText = TextEditingController();
   DateTime? selectedDate;
@@ -1211,6 +1213,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                       String pass = passText.text;
 
                                       print("Email: $email    Password: $pass");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Loginpage(
+                                            /*Loginpage class constructor expects two inputs
+                                            *so we are giving those in calling that class 
+                                            */
+                                            email: email,
+                                            password: pass,
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: Text(
                                       "login",

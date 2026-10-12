@@ -5,7 +5,7 @@ TextStyle mytextstyle20() {
   return TextStyle(
     fontFamily: 'myfont1',
     fontWeight: FontWeight.bold,
-    color: Colors.lightBlue,
+    color: Colors.white,
     fontSize: 20,
   );
 }
@@ -14,7 +14,7 @@ TextStyle mytextstyle12() {
   return TextStyle(
     fontFamily: 'myfont1',
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: Colors.white,
     fontSize: 12,
   );
 }

@@ -16,21 +16,32 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(),
+      home: const Loginpage(email: '', password: ''),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class Loginpage extends StatefulWidget {
+  /*when this class will be called/navigated from other page,
+   * the constructor will be called with the values given 
+   * from the navigator class
+   */
+  final String email;
+  final String password;
+  const Loginpage({super.key, required this.email, required this.password});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Loginpage> createState() => LoginpageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class LoginpageState extends State<Loginpage> {
+  RangeValues values = RangeValues(0, 1);
   @override
   Widget build(BuildContext context) {
+    RangeLabels labels = RangeLabels(
+      values.start.toString(),
+      values.end.toString(),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -47,16 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 //height: 500,
                 decoration: BoxDecoration(
-                  color: Colors.lightGreenAccent,
                   borderRadius: BorderRadius.all(Radius.circular(20)),
-                  border: Border.all(width: 5, color: Colors.black),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 25,
-                      spreadRadius: 7,
-                    ),
-                  ],
                 ),
                 child: Center(
                   child: Column(
@@ -69,7 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           CircleAvatar(
                             radius: 50,
-                            backgroundImage: AssetImage('assets/avatar.jpg'),
+                            backgroundImage: AssetImage(
+                              'assets/images/avatar.jpg',
+                            ),
                           ),
                         ],
                       ),
@@ -213,83 +217,33 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
+                      SizedBox(height: 5),
+                      Text("Email: ${widget.email}"),
+                      /*widget. is used coz email is defined in loginpage class
+                        *and is being called in text from Loginpagestate class, both classes diffeent.
+                        *so widget. helps us to take value from the widget that created the object of
+                        *Loginpagestate widget
+                        */
+                      SizedBox(height: 5),
+                      Text("Passowrd: ${widget.password}"),
+                      SizedBox(height: 5),
+
+                      RangeSlider(
+                        values: values,
+                        divisions: 10,
+                        labels: labels,
+                        // max: 100,
+                        // min: 0,
+                        activeColor: Colors.green,
+                        inactiveColor: Colors.green.shade50,
+                        onChanged: (newvalue) {
+                          values = newvalue;
+                          setState(() {});
+                        },
+                      ),
                     ],
                   ),
                 ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              child: Column(
-                children: [
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    color: Colors.yellow,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 100,
-                            width: 300,
-                            color: Colors.brown,
-                          ),
-                          Container(
-                            height: 100,
-                            width: 300,
-                            color: Colors.green,
-                          ),
-                          Container(
-                            height: 100,
-                            width: 300,
-                            color: Colors.white,
-                          ),
-                          Container(
-                            height: 100,
-                            width: 300,
-                            color: Colors.black,
-                          ),
-                          Container(
-                            height: 100,
-                            width: 300,
-                            color: Colors.blue,
-                          ),
-                          Container(
-                            height: 100,
-                            width: 300,
-                            color: Colors.purple,
-                          ),
-                          Container(
-                            height: 100,
-                            width: 300,
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    color: Colors.blue,
-                  ),
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    color: Colors.purple,
-                  ),
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    color: Colors.green,
-                  ),
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    color: Colors.brown,
-                  ),
-                ],
               ),
             ),
           ],

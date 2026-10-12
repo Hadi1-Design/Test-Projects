@@ -1,91 +1,121 @@
-import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  /*call-stack demo/direct invocation*/
-  // String greet(String name) {
-  //   return "hello $name";
-  // }
-
-  // String processuser(name) {
-  //   String? message = greet(name);
-  //   return message.toUpperCase();
-  // }
-
-  // stdout.write(processuser('ahad'));
-
-  // /*recursive function*/
-  // int n = 5;
-  // int callbackerr(int n) {
-  //   if (n <= 0) {
-  //     return 0;
-  //   }
-  //   return callbackerr(n - 1);
-  // }
-
-  // int rsult = callbackerr(n);
-  // stdout.write(rsult);
-
-  // /*call back fucntion*/
-  // void name(Function callbacktesting) {
-  //   stdout.write("Click Me and i will call new function after 3 seconds");
-  //   sleep(Duration(seconds: 3));
-
-  //   callbacktesting();
-  // }
-
-  // void called() {
-  //   stdout.write("\nCallback function is called");
-  // }
-
-  // name(called);
-
-  // /*palindrome*/
-  // bool ispalindrome(str) {
-  //   int start = 0;
-  //   int end = str.length - 1;
-  //   while (start < end) {
-  //     if (str[start] != str[end]) {
-  //       return false;
-  //     }
-
-  //     start++;
-  //     end--;
-  //   }
-  //   return true;
-  // }
-
-  // String text = "aabbaa";
-  // ispalindrome(text)
-  //     ? stdout.write("Valid Palindrome")
-  //     : stdout.write("Invalid Palindrome");
-
-  // Car mycar = new Car();
-  // mycar.brand = "toyota";
-  // mycar.year = 2026;
-  // mycar.drive();
-
-  Car c1 = new Car("Mercedes", 2007, "v8");
-  Car c2 = new Car("\nBMW", 2009, "v6");
-  c1.drive();
-  c2.drive();
-  c2.opentrunk();
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.white, // Makes notification bar background white
+      statusBarIconBrightness: Brightness
+          .dark, // Makes icons (time, battery) dark grey/black so they stay visible
+      statusBarBrightness: Brightness.light,
+    ),
+  ); // Required for iOS support
+  runApp(const MyApp());
 }
 
-class Vehicle {
-  Vehicle(this.brand, this.year);
-  String brand = "";
-  int year = 0;
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  void opentrunk() {
-    stdout.write("\nTrunk is being opened");
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Welcome To New App",
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+      ),
+      home: const MyHomePage(),
+    );
   }
 }
 
-class Car extends Vehicle {
-  String engine = '';
-  Car(String brand, int year, this.engine) : super(brand, year);
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
-  void drive() {
-    stdout.write("\n$brand $year $engine being driven");
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  var no1controller = TextEditingController();
+  var no2controller = TextEditingController();
+  var result = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Statefull Widgets")),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Colors.blue.shade100,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: no1controller,
+                keyboardType: TextInputType.number,
+              ),
+              TextField(
+                controller: no2controller,
+                keyboardType: TextInputType.number,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      var no1 = int.parse(no1controller.text);
+                      var no2 = int.parse(no2controller.text);
+                      var sum = no1 + no2;
+                      result = "The sum of $no1 & $no2 is $sum";
+                      setState(() {});
+                    },
+                    child: Text("Add"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      var no1 = int.parse(no1controller.text);
+                      var no2 = int.parse(no2controller.text);
+                      var sum = no1 - no2;
+                      result = "The diff of $no1 & $no2 is $sum";
+                      setState(() {});
+                    },
+                    child: Text("Subtract"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      var no1 = int.parse(no1controller.text);
+                      var no2 = int.parse(no2controller.text);
+                      var sum = no1 * no2;
+                      result = "The product of $no1 & $no2 is $sum";
+                      setState(() {});
+                    },
+                    child: Text("Multiply"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      var no1 = int.parse(no1controller.text);
+                      var no2 = int.parse(no2controller.text);
+                      var sum = no1 % no2;
+                      result = "The division of $no1 & $no2 is $sum";
+                      setState(() {});
+                    },
+                    child: Text("Divide"),
+                  ),
+                ],
+              ),
+              Text(
+                result,
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
