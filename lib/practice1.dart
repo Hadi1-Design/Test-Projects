@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -34,8 +36,50 @@ class Loginpage extends StatefulWidget {
   State<Loginpage> createState() => LoginpageState();
 }
 
-class LoginpageState extends State<Loginpage> {
+class LoginpageState extends State<Loginpage>
+    with SingleTickerProviderStateMixin {
+  var _height = 100;
+  var _width = 200;
+  var _color;
+  bool flag = true;
   RangeValues values = RangeValues(0, 1);
+  bool _iffirst = true;
+
+  //tween animation
+  late Animation animation;
+  late Animation colorAnimation;
+  late AnimationController animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 2), () {
+      reload();
+    });
+
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 10),
+    );
+    animation = Tween(begin: 0.0, end: 200.0).animate(animationController);
+    colorAnimation = ColorTween(
+      begin: Colors.amberAccent,
+      end: Colors.red,
+    ).animate(animationController);
+
+    animationController.addListener(() {
+      setState(() {});
+    });
+
+    animationController.forward();
+  }
+
+  void reload() {
+    setState(() {
+      _iffirst = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     RangeLabels labels = RangeLabels(
@@ -65,6 +109,15 @@ class LoginpageState extends State<Loginpage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      Hero(
+                        tag: "heroimg",
+                        child: Image.asset(
+                          "assets/images/image5.jpeg",
+                          height: 200,
+                          width: double.infinity,
+                        ),
+                      ),
+
                       SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -240,6 +293,66 @@ class LoginpageState extends State<Loginpage> {
                           values = newvalue;
                           setState(() {});
                         },
+                      ),
+
+                      AnimatedContainer(
+                        margin: EdgeInsets.only(bottom: 10),
+                        duration: Duration(
+                          seconds: 2,
+                        ), //time of aniamtion to run less = fast, large = slow
+                        width: _width.toDouble(),
+                        height: _height.toDouble(),
+                        color: _color,
+                        curve: Curves.bounceOut,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (flag) {
+                            _width = 100;
+                            _height = 200;
+                            _color = Colors.orange;
+                            flag = false;
+                          } else {
+                            _width = 200;
+                            _height = 100;
+                            _color = Colors.blue;
+                            flag = true;
+                          }
+                          setState(() {});
+                        },
+                        child: Text("Animate"),
+                      ),
+                      Container(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15.0),
+                        child: AnimatedCrossFade(
+                          firstChild: Container(
+                            height: 200,
+                            width: 200,
+                            color: Colors.amber,
+                          ),
+                          secondChild: Image.asset(
+                            "assets/images/avatar.jpg",
+                            height: 50,
+                            width: 50,
+                          ),
+                          sizeCurve: Curves.fastOutSlowIn,
+                          firstCurve: Curves.easeInOut,
+                          secondCurve: Curves.bounceIn,
+                          crossFadeState: (_iffirst)
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
+                          duration: Duration(seconds: 3),
+                        ),
+                      ),
+                      Container(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: animation.value,
+                          width: animation.value,
+                          color: colorAnimation.value,
+                        ),
                       ),
                     ],
                   ),
