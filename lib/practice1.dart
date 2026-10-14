@@ -49,6 +49,7 @@ class LoginpageState extends State<Loginpage>
   late Animation animation;
   late Animation colorAnimation;
   late AnimationController animationController;
+  var listradius = [150.0, 200.0, 250.0, 300.0, 350.0];
 
   @override
   void initState() {
@@ -61,7 +62,7 @@ class LoginpageState extends State<Loginpage>
       vsync: this,
       duration: Duration(seconds: 10),
     );
-    animation = Tween(begin: 0.0, end: 200.0).animate(animationController);
+    animation = Tween(begin: 0.0, end: 1.0).animate(animationController);
     colorAnimation = ColorTween(
       begin: Colors.amberAccent,
       end: Colors.red,
@@ -352,6 +353,28 @@ class LoginpageState extends State<Loginpage>
                           height: animation.value,
                           width: animation.value,
                           color: colorAnimation.value,
+                        ),
+                      ),
+                      Container(height: 10),
+
+                      //tween ripple animation
+                      Container(
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            ...listradius.map((radius) {
+                              return Container(
+                                width: radius * animation.value,
+                                height: radius * animation.value,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.blue.withOpacity(
+                                    1.0 - animation.value,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ],
                         ),
                       ),
                     ],
