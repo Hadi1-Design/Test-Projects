@@ -18,25 +18,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const Loginpage(email: '', password: ''),
+      home: const Loginpage2(email: '', password: ''),
     );
   }
 }
 
-class Loginpage extends StatefulWidget {
+class Loginpage2 extends StatefulWidget {
   /*when this class will be called/navigated from other page,
    * the constructor will be called with the values given 
    * from the navigator class
    */
   final String email;
   final String password;
-  const Loginpage({super.key, required this.email, required this.password});
+  const Loginpage2({super.key, required this.email, required this.password});
 
   @override
-  State<Loginpage> createState() => LoginpageState();
+  State<Loginpage2> createState() => Loginpage2State();
 }
 
-class LoginpageState extends State<Loginpage>
+class Loginpage2State extends State<Loginpage2>
     with SingleTickerProviderStateMixin {
   var _height = 100;
   var _width = 200;

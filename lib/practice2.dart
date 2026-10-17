@@ -1216,7 +1216,7 @@ class _MyHomePageState extends State<MyHomePage1> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Loginpage(
+                                          builder: (context) => Loginpage2(
                                             /*Loginpage class constructor expects two inputs
                                             *so we are giving those in calling that class 
                                             */
@@ -1496,7 +1496,7 @@ class _MyHomePageState extends State<MyHomePage1> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Loginpage(email: '', password: ''),
+                      builder: (context) => Loginpage2(email: '', password: ''),
                     ),
                   );
                 },
